@@ -1,0 +1,203 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+       <link rel="stylesheet" href="D:\bootstrap\css\bootstrap.css" />
+ <link rel="stylesheet" href="D:\bootstrap\css\bootstrap-responsive.css" />
+ <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+ <link href="D:\HTMLBASIC\empinput.html">
+
+
+        <style>
+.innertab {
+    width: 700px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 20px;	
+}
+
+#form{
+            width: 500px;
+            height: 380px;
+            background-color: rgb(209, 231, 245);
+            margin-top: 30px;
+            border: 10px solid black;
+            padding:30px;
+            display:none;
+            margin-left:300px;
+        }
+        input{
+            width:300px;
+        }
+
+
+        </style>
+         <script>
+             $(document).ready(function(){
+                 diaplayPage(1);
+             });
+             function diaplayPage(pageNo)
+            {
+                pagePointer=pageNo;
+                URL="https://reqres.in/api/users?page=";
+                $("tbody").children().remove();
+
+             $.ajax({
+            url: URL+pageNo,
+            type:"GET",
+            dataType:"JSON",
+            beforeSend: function(){}
+        }).done(function(response) {
+            var tablerow="";
+            $.each(response.data, function(u, v){
+                tablerow=tablerow+'<tr><td>' + v.first_name +" " +v.last_name+ '</td><td>' + v.email + '</td><td><img id="img" src="' 
+                + v.avatar + '" width="100px" /></td><td> <a class="edit"  title="Edit" data-toggle="tooltip"><i  class="material-icons" style="color:green">&#xE254;</i></a>  <a class="delete"  title="Delete" data-target="#deletemodal" data-toggle="modal"><i  class="material-icons" style="color:red">&#xE872;</i></a>';
+            });
+            $('#table').append(tablerow);
+        });
+        
+    }
+    var name1= document.getElementById('firstname');
+    var email1= document.getElementById('email');
+    var lname =  document.getElementById('lastname');
+    $(document).ready(function(){
+    $(".submit").click(function(){
+
+    $.ajax({
+    url: "https://reqres.in/api/users",
+    type: 'POST',
+    data :
+    {
+            first_name:name1,
+            last_name:lname,
+            email : email1
+    },
+    success: function(response){
+        console.log(response);
+        
+    }
+});
+});
+});
+//toggle//
+    jQuery(document).ready(function()
+        {
+    jQuery("#btnm").click(function(){
+      jQuery("#form").show();
+      jQuery(".innertab").hide();
+    });
+  });
+//edit//     
+ $(document).on("click", ".edit", function(){		
+        $(this).parents("tr").find("td:not(:last-child)").each(function(){
+			$(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+		});		
+		$(this).parents("tr").find(".add, .edit").toggle();
+		$(".add-new").attr("disabled", "disabled");
+    });
+//delete//
+
+$(document).on("click", ".delete", function()
+            {
+                $(this).parents("tr").remove();
+		        $(".add-new").removeAttr("disabled");
+            });
+            $(document).on("click", ".edit", function()
+            {		
+            $(this).parents("tr").find("td:not(:last-child)").each(function(){
+			$(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+		    });		
+		   $(this).parents("tr").find(".add, .edit").toggle();
+           $(".add-new").attr("disabled", "disabled");
+          
+        });
+
+
+  </script>
+    </head>
+    <body>
+            <div class="container" id>
+                        <div class="innertab">
+                            <div  >
+                               <h3 style="text-align: left;">User Lists</h3>
+                               <button type="button" id="btnm" class="btn btn-info" style="margin-left: 500px;float:right; margin-bottom:2px;"><i class="fa fa-plus"></i>Add New </button> 
+                           
+                            <table id="alk-table" class="table table-bordered" style="margin-top: 30px;  width:655px; height:300px;" >
+                                    <thead>
+                                        <tr>
+                                     <th scope="col">Name</th>
+                                     <th  scope="col">Email_address</th>
+                                     <th  scope="col">Avatar</th>
+                                     <th scope="col">Actions</th></tr>
+                                    </thead>
+   
+                                    <tbody id="table"></tbody>
+                            </table>
+                            <div class="container">                
+                                    <ul class="pagination" style="padding-left:400px";>
+                                      <li> <a href="#" onclick="diaplayPage(pagePointer-1)" class="glyphicon glyphicon-chevron-left"></a></li>  
+                                         
+                                      <li ><a href="#" class=button1 onclick="diaplayPage(1)">1</a></li>
+                                      <li><a href="#" class=button1 onclick="diaplayPage(2)">2</a></li>
+                                      <li><a href="#" class=button1 onclick="diaplayPage(3)">3</a></li>
+                                      <li><a href="#" class=button1 onclick="diaplayPage(4)">4</a></li>
+                                      <li> <a href="#" onclick="diaplayPage(pagePointer+1)" class="glyphicon glyphicon-chevron-right"></a></li>  
+                                    </ul>
+                                </div>  
+                                <div class="modal" role="document"  id="deletemodal" tabindex="-1" role="dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title">Delete</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <p>Are you sure you want to delete ?</p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary">Delete</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                      
+                      
+                                
+                          
+                    </div>
+                    
+
+                    </div>
+
+                    <form id=form>
+                        <div class="container1">
+                            <h4 > User Details</h4>
+                            <form class="horizontal">
+                
+                            <label for="input">First Name</label>
+                            <input type="text" name="name" id="firstname" placeholder="John">
+                
+                            <label for="input">Last Name</label>
+                            <input type="text" name="name" id="lastname" placeholder="Doe">
+                
+                            <label for="input">Email</label>
+                            <input type="text" name="email" id="email" placeholder="you@domain.com"><br>
+                            <button type="submit" id="submit"  value="Submit" class="btn btn-info" style="margin-left:150px;">Submit</button>
+                            </div>
+                        </form>
+
+
+               </div>
+
+
+                  
+               
+    </body>
+</html>
