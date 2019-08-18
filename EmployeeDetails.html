@@ -1,0 +1,220 @@
+
+<html>
+        <head>
+               
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+            
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+       
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+            <style>
+    .btn-info {
+      color: #fff;
+      background-color: #69dff1;
+      border-radius: 35px;
+      border: 1px solid rgba(132, 239, 255, 0.75);  
+    }
+    h2{
+        color:rgb(250, 248, 245);
+        text-shadow: 2px 2px 4px #000000;
+    }
+    #form{
+                width: 500px;
+                height: 380px;
+                background-color: rgb(209, 231, 245);
+                margin-top: 30px;
+                border: 10px solid black;
+                padding:30px;
+                display:none;
+                margin-left:300px;
+            }
+            input{
+                width:300px;
+            }
+     
+    table #alk-table tr th{
+      width:100px;
+      border:1px solid #ddd;
+      padding:8px;
+    }        
+    #alk-table{
+      font-family: "Maiandra GD",Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 90%;
+      border-style: groove;
+      border-width: 7px;
+      border-color: rgb(204, 203, 253);
+    }
+    #alk-table td,#alk-table th
+    {
+      border:2px solid #ddd;
+      padding: 8px;
+      text-align: center;
+      font-size: 15pt;
+      color:rgb(253, 255, 255);
+    }
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+      background-color:rgb(103, 123, 167);
+    }
+    body{
+      background-image: url("http://www.goodwp.com/images/201302/goodwp.com_27440.jpg");
+    }
+            </style>
+             <script>
+                 $(document).ready(function(){
+                     diaplayPage(1);
+                 });
+                 function diaplayPage(pageNo)
+                {
+                    pagePointer=pageNo;
+                    URL="https://reqres.in/api/users?page=";
+                    $("tbody").children().remove();
+                 $.ajax({
+                url: URL+pageNo,
+                type:"GET",
+                dataType:"JSON",
+                beforeSend: function(){}
+            }).done(function(response) {
+                var tablerow="";
+                $.each(response.data, function(u, v){
+                    tablerow=tablerow+'<tr><td>' + v.first_name +" " +v.last_name+ '</td><td>' + v.email + '</td><td><img id="img" src="' 
+                    + v.avatar + '" width="100px" /></td><td> <a class="edit"  title="Edit" data-toggle="tooltip"><i  class="material-icons" style="color:rgb(39, 37, 37)">&#xE254;</i></a>  <a class="delete"  title="Delete" data-toggle="modal" data-target="#exampleModal"><i  class="material-icons" style="color: wheat">&#xE872;</i></a>';
+                });
+                $('#table').append(tablerow);
+            });
+            
+        }
+        var name1= document.getElementById('firstname');
+        var email1= document.getElementById('email');
+        var lname =  document.getElementById('lastname');
+        $(document).ready(function(){
+        $(".submit").click(function(){
+        $.ajax({
+        url: "https://reqres.in/api/users",
+        type: 'POST',
+        data :
+        {
+                first_name:name1,
+                last_name:lname,
+                email : email1
+        },
+        success: function(response){
+            console.log(response);
+            
+        }
+    });
+    });
+    });
+    //toggle//
+        jQuery(document).ready(function()
+            {
+        jQuery("#btnm").click(function(){
+          jQuery("#form").show();
+          jQuery(".innertab").hide();
+        });
+      });
+    //edit//     
+     $(document).on("click", ".edit", function(){		
+            $(this).parents("tr").find("td:not(:last-child)").each(function(){
+                $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+            });		
+            $(this).parents("tr").find(".add, .edit").toggle();
+            $(".add-new").attr("disabled", "disabled");
+        });
+    //delete//
+    $(document).on("click", ".delete", function()
+                {
+                    $(this).parents("tr").remove();
+                    $(".add-new").removeAttr("disabled");
+                });
+               
+      </script>
+        </head>
+        <body>
+              <div class="container" style="color:white;" >
+                <div class="row">
+                    <div class="col-md-4 col-sm-offset-3">
+                        <div class="row">
+                           <div class="col-sm-9"> <h2>User Lists</h2></div>
+                        
+                           <div class="col-sm-2 col-sm-offset-1"><button  type="button" id="btnm" class="btn btn-info"  style="margin-top: 15px;"><i class="fa fa-plus" ></i>Add New </button> </div>
+                          </div>
+                           <div class="row">
+                                 <table id="alk-table" class="table  table-hover" border="1" align="center" >
+                                           <thead>
+                                               <tr>
+                                           <th >Name</th>
+                                           <th>Email_address</th>
+                                           <th >Avatar</th>
+                                           <th>Actions</th>
+                                               </tr>
+                                           </thead>
+    
+                                           <tbody id="table"></tbody>
+                                   </table>
+                                  </div>
+                            <div class="row"  style="margin-left:11em;">
+    
+                                <ul class="pagination" >
+                                    <li> <a href="#" onclick="diaplayPage(pagePointer-1)" class="glyphicon glyphicon-chevron-left"></a></li>  
+                                        
+                                    <li ><a href="#" class=button1 onclick="diaplayPage(1)">1</a></li>
+                                    <li><a href="#" class=button1 onclick="diaplayPage(2)">2</a></li>
+                                    <li><a href="#" class=button1 onclick="diaplayPage(3)">3</a></li>
+                                    <li><a href="#" class=button1 onclick="diaplayPage(4)">4</a></li>
+                                    <li> <a href="#" onclick="diaplayPage(pagePointer+1)" class="glyphicon glyphicon-chevron-right"></a></li>  
+                                    </ul>
+                         </div>
+                </div>
+              </div>
+    
+              
+    <div>
+                    <form id=form>
+                        <div class="container1">
+                            <h4 > User Details</h4>
+                            <form class="horizontal">
+                
+                            <label for="input">First Name</label>
+                            <input type="text" name="name" id="firstname" placeholder="John">
+                
+                            <label for="input">Last Name</label>
+                            <input type="text" name="name" id="lastname" placeholder="Doe">
+                
+                            <label for="input">Email</label>
+                            <input type="text" name="email" id="email" placeholder="you@domain.com"><br>
+                            <button type="submit" id="submit"  value="Submit" class="btn btn-info" style="margin-left:150px;">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+          </div>
+    
+          
+    <div>
+      <form id=form>
+          <div class="container1">
+              <h4 > User Details</h4>
+              <form class="horizontal">
+    
+              <label for="input">First Name</label>
+              <input type="text" name="name" id="firstname" placeholder="John">
+    
+              <label for="input">Last Name</label>
+              <input type="text" name="name" id="lastname" placeholder="Doe">
+    
+              <label for="input">Email</label>
+              <input type="text" name="email" id="email" placeholder="you@domain.com"><br>
+              <button type="submit" id="submit"  value="Submit" class="btn btn-info" style="margin-left:150px;">Submit</button>
+              </div>
+          </form>
+      </div>
+        </body>
+    </html>
