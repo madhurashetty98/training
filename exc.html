@@ -1,16 +1,18 @@
 <html>
     <head>
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
-            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-            
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-       <link rel="stylesheet" href="D:\bootstrap\css\bootstrap.css" />
- <link rel="stylesheet" href="D:\bootstrap\css\bootstrap-responsive.css" />
- <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
- <link href="D:\HTMLBASIC\empinput.html">
-
+           
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+   
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
         <style>
 .btn-info {
@@ -25,16 +27,8 @@ h2{
     text-shadow: 2px 2px 4px #000000;
 }
 
-.innertab {
-    width: 700px;
-    margin: 30px auto;
-    background: #fff;
-    padding: 20px;	
-    box-shadow: #69dff1;
 
-  
 
-}
 #form{
             width: 500px;
             height: 380px;
@@ -48,6 +42,38 @@ h2{
         input{
             width:300px;
         }
+ 
+
+table #alk-table tr th{
+  width:100px;
+  border:1px solid #ddd;
+  padding:8px;
+}        
+#alk-table{
+  font-family: "Maiandra GD",Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 90%;
+  border-style: groove;
+  border-width: 7px;
+  border-color: rgb(204, 203, 253);
+
+}
+#alk-table td,#alk-table th
+{
+  border:2px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  font-size: 15pt;
+  color:rgb(253, 255, 255);
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color:rgb(103, 123, 167);
+}
+
+body{
+  background-image: url("http://www.goodwp.com/images/201302/goodwp.com_27440.jpg");
+}
         </style>
          <script>
              $(document).ready(function(){
@@ -67,7 +93,7 @@ h2{
             var tablerow="";
             $.each(response.data, function(u, v){
                 tablerow=tablerow+'<tr><td>' + v.first_name +" " +v.last_name+ '</td><td>' + v.email + '</td><td><img id="img" src="' 
-                + v.avatar + '" width="100px" /></td><td> <a class="edit"  title="Edit" data-toggle="tooltip"><i  class="material-icons" style="color:green">&#xE254;</i></a>  <a class="delete"  title="Delete" data-toggle="modal" data-target="#exampleModal"><i  class="material-icons" style="color:red">&#xE872;</i></a>';
+                + v.avatar + '" width="100px" /></td><td> <a class="edit"  title="Edit" data-toggle="tooltip"><i  class="material-icons" style="color:rgb(39, 37, 37)">&#xE254;</i></a>  <a class="delete"  title="Delete" data-toggle="modal" data-target="#exampleModal"><i  class="material-icons" style="color: wheat">&#xE872;</i></a>';
             });
             $('#table').append(tablerow);
         });
@@ -119,113 +145,83 @@ $(document).on("click", ".delete", function()
            
   </script>
     </head>
-    <body style="background-color:rgb(247, 242, 194)" >
-
-
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                        
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
+    <body>
+          <div class="container" style="color:white;" >
+            <div class="row">
+                <div class="col-md-4 col-sm-offset-3">
+                    <div class="row">
+                       <div class="col-sm-9"> <h2>User Lists</h2></div>
+                    
+                       <div class="col-sm-2 col-sm-offset-1"><button  type="button" id="btnm" class="btn btn-info"  style="margin-top: 15px;"><i class="fa fa-plus" ></i>Add New </button> </div>
                       </div>
-                    </div>
-                </div>
+                       <div class="row">
+                             <table id="alk-table" class="table  table-hover" border="1" align="center" >
+                                       <thead>
+                                           <tr>
+                                       <th >Name</th>
+                                       <th>Email_address</th>
+                                       <th >Avatar</th>
+                                       <th>Actions</th>
+                                           </tr>
+                                       </thead>
 
+                                       <tbody id="table"></tbody>
+                               </table>
+                              </div>
+                        <div class="row"  style="margin-left:11em;">
 
-
-
-
-            <div class="container" >
-                        <div class="innertab"   style="border:1.5px solid white; border-radius:24px;background-color:rgb(253, 190, 190);box-shadow: 10px 10px 9px 9px rgb(236, 228, 228);">
-                    
-                        
-                               <h2  style="text-align: left; margin-bottom: 0px;">User Lists</h2>
-                               <button  type="button" id="btnm" class="btn btn-info" style="margin-left: 500px; margin-top:0px;float:right;"><i class="fa fa-plus"></i>Add New </button> 
-                        
-                        
- 
-                            <table id="alk-table" class="table  table-hover" style="margin-top: 70px;  width:660px; height:300px; border-width: 2px;" >
-                                    <thead>
-                                        <tr>
-                                     <th scope="col">Name</th>
-                                     <th  scope="col">Email_address</th>
-                                     <th  scope="col">Avatar</th>
-                                     <th scope="col">Actions</th></tr>
-                                    </thead>
-   
-                                    <tbody id="table"></tbody>
-                            </table>
-                            <div class="container">                
-                                    <ul class="pagination" style="padding-left:400px";>
-                                      <li> <a href="#" onclick="diaplayPage(pagePointer-1)" class="glyphicon glyphicon-chevron-left"></a></li>  
-                                         
-                                      <li ><a href="#" class=button1 onclick="diaplayPage(1)">1</a></li>
-                                      <li><a href="#" class=button1 onclick="diaplayPage(2)">2</a></li>
-                                      <li><a href="#" class=button1 onclick="diaplayPage(3)">3</a></li>
-                                      <li><a href="#" class=button1 onclick="diaplayPage(4)">4</a></li>
-                                      <li> <a href="#" onclick="diaplayPage(pagePointer+1)" class="glyphicon glyphicon-chevron-right"></a></li>  
-                                    </ul>
-                                </div>  
-                                <div class="modal" role="document"  id="deletemodal" tabindex="-1" role="dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title">Delete</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <p>Are you sure you want to delete ?</p>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary">Delete</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                      
-                      
-                        
-                          
-                    </div>
-                    
-
+                            <ul class="pagination" >
+                                <li> <a href="#" onclick="diaplayPage(pagePointer-1)" class="glyphicon glyphicon-chevron-left"></a></li>  
+                                    
+                                <li ><a href="#" class=button1 onclick="diaplayPage(1)">1</a></li>
+                                <li><a href="#" class=button1 onclick="diaplayPage(2)">2</a></li>
+                                <li><a href="#" class=button1 onclick="diaplayPage(3)">3</a></li>
+                                <li><a href="#" class=button1 onclick="diaplayPage(4)">4</a></li>
+                                <li> <a href="#" onclick="diaplayPage(pagePointer+1)" class="glyphicon glyphicon-chevron-right"></a></li>  
+                                </ul>
+                     </div>
             </div>
+          </div>
 
-                    <form id=form>
-                        <div class="container1">
-                            <h4 > User Details</h4>
-                            <form class="horizontal">
-                
-                            <label for="input">First Name</label>
-                            <input type="text" name="name" id="firstname" placeholder="John">
-                
-                            <label for="input">Last Name</label>
-                            <input type="text" name="name" id="lastname" placeholder="Doe">
-                
-                            <label for="input">Email</label>
-                            <input type="text" name="email" id="email" placeholder="you@domain.com"><br>
-                            <button type="submit" id="submit"  value="Submit" class="btn btn-info" style="margin-left:150px;">Submit</button>
-                            </div>
-                        </form>
+          
+<div>
+                <form id=form>
+                    <div class="container1">
+                        <h4 > User Details</h4>
+                        <form class="horizontal">
+            
+                        <label for="input">First Name</label>
+                        <input type="text" name="name" id="firstname" placeholder="John">
+            
+                        <label for="input">Last Name</label>
+                        <input type="text" name="name" id="lastname" placeholder="Doe">
+            
+                        <label for="input">Email</label>
+                        <input type="text" name="email" id="email" placeholder="you@domain.com"><br>
+                        <button type="submit" id="submit"  value="Submit" class="btn btn-info" style="margin-left:150px;">Submit</button>
+                        </div>
+                    </form>
+                </div>
+      </div>
 
+      
+<div>
+  <form id=form>
+      <div class="container1">
+          <h4 > User Details</h4>
+          <form class="horizontal">
 
-               </div>
+          <label for="input">First Name</label>
+          <input type="text" name="name" id="firstname" placeholder="John">
 
+          <label for="input">Last Name</label>
+          <input type="text" name="name" id="lastname" placeholder="Doe">
 
-                  
-               
+          <label for="input">Email</label>
+          <input type="text" name="email" id="email" placeholder="you@domain.com"><br>
+          <button type="submit" id="submit"  value="Submit" class="btn btn-info" style="margin-left:150px;">Submit</button>
+          </div>
+      </form>
+  </div>
     </body>
 </html>
